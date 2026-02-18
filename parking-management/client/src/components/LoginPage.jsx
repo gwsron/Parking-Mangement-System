@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const LoginPage = ({ onLogin }) => {
     const [username, setUsername] = useState('');
@@ -12,7 +12,7 @@ const LoginPage = ({ onLogin }) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/api/login', {
-                username,
+                email: username,
                 password
             });
 
@@ -32,12 +32,13 @@ const LoginPage = ({ onLogin }) => {
                 {error && <p className="error-message">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Username</label>
+                        <label>Email Address</label>
                         <input
-                            type="text"
+                            type="email"
+                            name="email"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Enter username (admin)"
+                            placeholder="Enter your email"
                             required
                         />
                     </div>
@@ -47,13 +48,15 @@ const LoginPage = ({ onLogin }) => {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter password (admin)"
+                            placeholder="Enter your password"
                             required
                         />
                     </div>
                     <button type="submit" className="login-btn">Login</button>
                 </form>
-                <p className="hint">Hint: Use <b>admin / admin</b> to login</p>
+                <p className="hint">
+                    Don't have an account? <Link to="/signup" style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>Sign Up</Link>
+                </p>
             </div>
         </div>
     );
