@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 import HomePage from './components/HomePage';
 import BookingPage from './components/BookingPage';
 
@@ -41,6 +42,10 @@ function App() {
           <Routes>
             <Route path="/login" element={
               user ? <Navigate to="/home" replace /> : <LoginPage onLogin={handleLogin} />
+            } />
+
+            <Route path="/signup" element={
+              user ? <Navigate to="/home" replace /> : <SignupPage />
             } />
 
             <Route path="/" element={<Navigate to="/login" replace />} />
